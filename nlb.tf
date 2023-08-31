@@ -20,6 +20,7 @@ resource "aws_lb_listener" "listener" {
   load_balancer_arn = aws_lb.lb.arn
   port              = "443"
   protocol          = "TLS"
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   certificate_arn   = data.aws_acm_certificate.cert.arn
 
   default_action {
@@ -37,6 +38,15 @@ resource "aws_lb_target_group" "tg" {
   vpc_id                 = module.vpc.vpc_id
   connection_termination = true
   deregistration_delay   = "30"
+  health_check {
+    enabled             = true
+    port                = "traffic-port"
+    protocol            = "HTTP"
+    path                = "/ping"
+    timeout             = 5
+    healthy_threshold   = 2
+    unhealthy_threshold = 3
+  }
 }
 
 resource "aws_autoscaling_attachment" "asg_tg" {
