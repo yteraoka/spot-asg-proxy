@@ -29,7 +29,7 @@ jobs:
 
       - name: download satif-to-rdjson
         run: |
-          curl -Lo sarif-to-rdjson.tar.gz https://github.com/yteraoka/sarif-to-rdjson/releases/download/v0.0.4/sarif-to-rdjson_Linux_x86_64.tar.gz
+          curl -Lo sarif-to-rdjson.tar.gz https://github.com/yteraoka/sarif-to-rdjson/releases/download/v0.0.5/sarif-to-rdjson_Linux_x86_64.tar.gz
           tar -zxvf sarif-to-rdjson.tar.gz sarif-to-rdjson
           chmod +x sarif-to-rdjson
 
