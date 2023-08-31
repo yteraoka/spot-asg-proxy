@@ -29,6 +29,11 @@ resource "aws_launch_template" "template" {
     security_groups             = [aws_security_group.server.id]
   }
 
+  metadata_options {
+    http_endpoint = "enabled"
+    http_tokens   = "required"
+  }
+
   user_data = filebase64("${path.module}/user-data.sh")
 
   tag_specifications {
