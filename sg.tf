@@ -5,6 +5,9 @@ resource "aws_security_group" "nlb" {
   vpc_id      = module.vpc.vpc_id
   name        = "${local.name}-nlb"
   description = "for NLB"
+  tags = {
+    Name = "${local.name}-nlb"
+  }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "nlb_allow_https" {
@@ -31,6 +34,9 @@ resource "aws_security_group" "server" {
   vpc_id      = module.vpc.vpc_id
   name        = "${local.name}-server"
   description = "for proxy server"
+  tags = {
+    Name = "${local.name}-server"
+  }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "server_allow_http" {
