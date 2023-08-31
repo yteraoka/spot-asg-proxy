@@ -25,8 +25,14 @@ resource "aws_launch_template" "template" {
   #vpc_security_group_ids = [aws_security_group.server.id]
 
   network_interfaces {
+    #checkov:skip=CKV_AWS_88:テストなのでコスト削減のために public ip を持たせる
     associate_public_ip_address = true
     security_groups             = [aws_security_group.server.id]
+  }
+
+  metadata_options {
+    http_endpoint = "enabled"
+    http_tokens   = "required"
   }
 
   user_data = filebase64("${path.module}/user-data.sh")
@@ -53,6 +59,8 @@ resource "aws_launch_template" "template" {
 }
 
 resource "aws_autoscaling_group" "asg" {
+  #checkov:skip=CKV_AWS_315:Launch template は mixed_instance_policy で指定している
+  #checkov:skip=CKV_AWS_153:tag は provider の default_tags で指定
   max_size                  = 1
   min_size                  = 1
   name                      = local.name
