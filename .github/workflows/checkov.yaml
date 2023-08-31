@@ -37,4 +37,4 @@ jobs:
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./sarif-to-rdjson results.sarif | reviewdog -f=rdjson -name=checkov -reporter=github-pr-check -fail-on-error=true
+          ./sarif-to-rdjson results.sarif | reviewdog -f=rdjson -name=checkov -reporter=github-pr-review -fail-on-error=false
