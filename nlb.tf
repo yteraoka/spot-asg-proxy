@@ -10,6 +10,10 @@ resource "aws_lb" "lb" {
   load_balancer_type = "network"
   subnets            = module.vpc.public_subnets
   security_groups    = [aws_security_group.nlb.id]
+
+  #checkov:skip=CKV_AWS_152:Cross-zone load balancing は必要か？
+  #checkov:skip=CKV_AWS_91:Access Log はコスト削減のため無効
+  #checkov:skip=CKV_AWS_150:削除保護は不要
 }
 
 resource "aws_lb_listener" "listener" {

@@ -25,6 +25,7 @@ resource "aws_launch_template" "template" {
   #vpc_security_group_ids = [aws_security_group.server.id]
 
   network_interfaces {
+    #checkov:skip=CKV_AWS_88:テストなのでコスト削減のために public ip を持たせる
     associate_public_ip_address = true
     security_groups             = [aws_security_group.server.id]
   }
@@ -65,6 +66,7 @@ resource "aws_autoscaling_group" "asg" {
   health_check_grace_period = 300
   health_check_type         = "ELB"
 
+  #checkov:skip=CKV_AWS_315:Launch template は mixed_instance_policy で指定している
   mixed_instances_policy {
     instances_distribution {
       on_demand_percentage_above_base_capacity = 0
@@ -83,4 +85,6 @@ resource "aws_autoscaling_group" "asg" {
       }
     }
   }
+
+  #checkov:skip=CKV_AWS_153:tag は provider の default_tags で指定
 }
