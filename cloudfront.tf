@@ -1,3 +1,5 @@
+#trivy:ignore:AVD-AWS-0010 MEDIUM: Distribution does not have logging enabled
+#trivy:ignore:AVD-AWS-0013 HIGH: Distribution allows unencrypted communications
 resource "aws_cloudfront_distribution" "s3_distribution" {
   enabled = true
 

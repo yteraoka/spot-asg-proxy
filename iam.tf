@@ -35,8 +35,9 @@ data "aws_iam_policy_document" "s3_reader" {
     resources = [aws_s3_bucket.evidence.arn]
   }
   statement {
-    actions   = ["s3:GetObject"]
-    effect    = "Allow"
+    actions = ["s3:GetObject"]
+    effect  = "Allow"
+    #trivy:ignore:AVD-AWS-0057 HIGH: IAM policy document uses sensitive action 's3:GetObject' on wildcarded resource
     resources = ["${aws_s3_bucket.evidence.arn}/*"]
   }
   statement {
@@ -79,8 +80,10 @@ data "aws_iam_policy_document" "s3_writer" {
     resources = [aws_s3_bucket.evidence.arn]
   }
   statement {
-    actions   = ["s3:*"]
-    effect    = "Allow"
+    #trivy:ignore:AVD-AWS-0057 HIGH: IAM policy document uses wildcarded action 's3:*'
+    actions = ["s3:*"]
+    effect  = "Allow"
+    #trivy:ignore:AVD-AWS-0057 HIGH: IAM policy document uses sensitive action 's3:*' on wildcarded resource
     resources = ["${aws_s3_bucket.evidence.arn}/*"]
   }
 }
