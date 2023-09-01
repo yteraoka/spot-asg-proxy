@@ -9,3 +9,28 @@ resource "aws_s3_bucket" "evidence" {
   bucket = "${local.name}-evidence-${data.aws_caller_identity.current.account_id}"
 }
 
+# aws_iam_policy_document を使うとインデントの毎回差分が出てしまう
+resource "aws_s3_bucket_policy" "evidence" {
+  bucket = aws_s3_bucket.evidence.id
+  policy = <<-EOT
+  {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+              "Sid": "AllowCloudFrontServicePrincipal",
+              "Effect": "Allow",
+              "Principal": {
+                  "Service": "cloudfront.amazonaws.com"
+              },
+              "Action": "s3:GetObject",
+              "Resource": "${aws_s3_bucket.evidence.arn}/*",
+              "Condition": {
+                  "StringEquals": {
+                      "aws:SourceArn": "${aws_cloudfront_distribution.s3_distribution.arn}"
+                  }
+              }
+          }
+      ]
+  }
+  EOT
+}

@@ -1,5 +1,5 @@
 module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
+  source = "terraform-aws-modules/vpc/aws"
   #checkov:skip=CKV_TF_1:commit までは指定しない
   version = "v5.1.1"
 
