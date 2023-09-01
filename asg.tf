@@ -35,7 +35,10 @@ resource "aws_launch_template" "template" {
     http_tokens   = "required"
   }
 
-  user_data = filebase64("${path.module}/user-data.sh")
+  user_data = base64encode(templatefile("${path.module}/user-data.sh", {
+    upstream    = "https://${aws_cloudfront_distribution.s3_distribution.domain_name}"
+    github_repo = var.github_repo
+  }))
 
   tag_specifications {
     resource_type = "instance"

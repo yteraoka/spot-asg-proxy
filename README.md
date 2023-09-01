@@ -26,3 +26,7 @@ https://oxyno-zeta.github.io/s3-proxy/
 
 https://github.com/oauth2-proxy/oauth2-proxy
 
+
+```
+trivy config . --tf-exclude-downloaded-modules --skip-dirs .terraform
+```

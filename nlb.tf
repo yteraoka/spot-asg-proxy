@@ -4,6 +4,7 @@ data "aws_acm_certificate" "cert" {
   most_recent = true
 }
 
+#trivy:ignore:AVD-AWS-0053 HIGH: Load balancer is exposed publicly
 resource "aws_lb" "lb" {
   name               = local.name
   internal           = false
