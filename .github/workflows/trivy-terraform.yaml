@@ -39,4 +39,4 @@ jobs:
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cat trivy-results.sarif | sed -e 's/ROOTPATH/SRCROOT/g' -e 's,file:///,file://,' | reviewdog -f=sarif -name=trivy -reporter=github-pr-review -fail-on-error=false -filter-mode=nofilter -level=info
+          cat trivy-results.sarif | sed -e 's/ROOTPATH/SRCROOT/g' -e 's,file:///,file://%s,' | reviewdog -f=sarif -name=trivy -reporter=github-pr-review -fail-on-error=false -filter-mode=nofilter -level=info
