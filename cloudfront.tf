@@ -3,6 +3,8 @@
 resource "aws_cloudfront_distribution" "s3_distribution" {
   enabled = true
 
+  comment = "${local.name}"
+
   default_root_object = "index.html"
 
   origin {
