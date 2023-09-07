@@ -18,6 +18,11 @@ OAUTH2_PROXY_DOMAIN=$(aws ssm get-parameter --name /spot-asg-proxy/OAUTH2_PROXY_
 OAUTH2_PROXY_CLIENT_ID=$(aws ssm get-parameter --name /spot-asg-proxy/OAUTH2_PROXY_CLIENT_ID --query Parameter.Value --output text)
 OAUTH2_PROXY_CLIENT_SECRET=$(aws ssm get-parameter --name /spot-asg-proxy/OAUTH2_PROXY_CLIENT_SECRET --query Parameter.Value --output text --with-decryption)
 OAUTH2_PROXY_COOKIE_SECRET=$(aws ssm get-parameter --name /spot-asg-proxy/OAUTH2_PROXY_COOKIE_SECRET --query Parameter.Value --output text --with-decryption)
+OAUTH2_PROXY_COOKIE_EXPIRE=5m
+OAUTH2_PROXY_SKIP_PROVIDER_BUTTON=true
+OAUTH2_PROXY_LOGIN_URL=https://github.com/login/oauth/authorize
+OAUTH2_PROXY_REDEEM_URL=https://github.com/login/oauth/access_token
+OAUTH2_PROXY_VALIDATE_URL=https://gihtub.com/api/v3
 
 cat > /etc/systemd/system/oauth2-proxy.service <<'EOF'
 [Unit]
