@@ -34,7 +34,3 @@ resource "aws_s3_bucket_policy" "evidence" {
   }
   EOT
 }
-
-resource "aws_s3_bucket" "aaa" {
-  bucket = "my-bucket"
-}
